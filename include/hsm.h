@@ -313,6 +313,12 @@ inline Transition SiblingTransition(const StateFactory& stateFactory)
 	return Transition(Transition::Sibling, stateFactory);
 }
 
+template <typename TargetState, typename... Args>
+Transition SiblingTransition(const StateFactory& stateFactory, Args&&... args)
+{
+	return Transition(Transition::Sibling, stateFactory, GenerateOnEnterArgsFunc<TargetState>(std::forward<Args>(args)...));
+}
+
 template <typename TargetState>
 Transition SiblingTransition()
 {
@@ -333,6 +339,12 @@ inline Transition InnerTransition(const StateFactory& stateFactory)
 	return Transition(Transition::Inner, stateFactory);
 }
 
+template <typename... Args>
+Transition InnerTransition(const StateFactory& stateFactory, Args&&... args)
+{
+	return Transition(Transition::Inner, stateFactory, GenerateOnEnterArgsFunc<TargetState>(std::forward<Args>(args)...));
+}
+
 template <typename TargetState>
 Transition InnerTransition()
 {
@@ -351,6 +363,12 @@ Transition InnerTransition(Args&&... args)
 inline Transition InnerEntryTransition(const StateFactory& stateFactory)
 {
 	return Transition(Transition::InnerEntry, stateFactory);
+}
+
+template <typename... Args>
+Transition InnerEntryTransition(const StateFactory& stateFactory, Args&&... args)
+{
+	return Transition(Transition::InnerEntry, stateFactory, GenerateOnEnterArgsFunc<TargetState>(std::forward<Args>(args)...));
 }
 
 template <typename TargetState>
