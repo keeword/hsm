@@ -178,3 +178,5 @@ FakesAssemblies/
 *.wwdb
 
 *.exe
+
+test
